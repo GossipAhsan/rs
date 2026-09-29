@@ -1,0 +1,156 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="utf-8"><title>JnU CSE 3-2 Result Explorer</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:wght@400;600;800&display=swap" rel="stylesheet">
+<style>
+:root{box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);--bg:#edf2ee;--sf:#fff;--ink:#12231e;--mut:#5d6e68;--ln:#d3ddd8;--ac:#0f6b5c;--gd:#bfeccf;--hl:80%;--A:#3446c9;--B:#c9491a;--bd:#fbdcdc}
+@media(prefers-color-scheme:dark){:root:not([data-theme=light]){--bg:#0e1714;--sf:#16221e;--ink:#e6efeb;--mut:#93a59e;--ln:#2a3a35;--ac:#4fd1b5;--gd:#1f6040;--hl:32%;--A:#8b9bff;--B:#ff9a6b;--bd:#5a2424}}
+:root[data-theme=dark]{--bg:#0e1714;--sf:#16221e;--ink:#e6efeb;--mut:#93a59e;--ln:#2a3a35;--ac:#4fd1b5;--gd:#1f6040;--hl:32%;--A:#8b9bff;--B:#ff9a6b;--bd:#5a2424}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--ink);font:15px/1.5 'Bricolage Grotesque',system-ui,sans-serif}
+header{max-width:1100px;margin:0 auto;padding:22px 16px 8px;display:flex;justify-content:space-between;gap:12px;align-items:flex-start}
+h1{font-size:clamp(22px,4vw,34px);line-height:1.1;margin:0;font-weight:800;letter-spacing:-.02em}header p{margin:6px 0 0;color:var(--mut);font-size:13px}
+nav{max-width:1100px;margin:0 auto;padding:8px 16px;display:flex;gap:6px;flex-wrap:wrap;position:sticky;top:env(safe-area-inset-top,0px);background:var(--bg);z-index:5}
+button,select,input{font:inherit;color:inherit}
+nav button,.tg{border:1px solid var(--ln);background:var(--sf);border-radius:99px;padding:6px 16px;cursor:pointer}
+nav button.on{background:var(--ac);color:var(--bg);border-color:var(--ac);font-weight:600}
+main{max-width:1100px;margin:0 auto;padding:8px 16px 40px}
+.grid{display:grid;gap:12px;grid-template-columns:repeat(auto-fit,minmax(150px,1fr))}.two{grid-template-columns:repeat(auto-fit,minmax(300px,1fr))}
+.card{background:var(--sf);border:1px solid var(--ln);border-radius:10px;padding:14px 16px}.card h3{margin:0 0 10px;font-size:15px}
+.k b{display:block;font-size:28px;font-weight:800;letter-spacing:-.02em;line-height:1.1}.k span{color:var(--mut);font-size:12.5px}
+.bar{display:flex;align-items:center;gap:8px;margin:4px 0;font-size:13px}.bar u{text-decoration:none;width:34px}.bar i{display:block;height:14px;border-radius:3px;background:var(--ac);min-width:2px}.bar em{color:var(--mut);font-style:normal}
+ul.in{margin:0;padding-left:18px}ul.in li{margin:5px 0}
+.tw{overflow-x:auto;border:1px solid var(--ln);border-radius:10px;background:var(--sf)}
+table{border-collapse:collapse;width:100%;font-size:13.5px;font-variant-numeric:tabular-nums}
+th,td{padding:7px 10px;text-align:left;border-bottom:1px solid var(--ln);white-space:nowrap}th{color:var(--mut);font-weight:600;cursor:pointer;user-select:none}
+tbody tr.cl{cursor:pointer}tbody tr.cl:hover{background:color-mix(in srgb,var(--ac) 10%,transparent)}
+.ctl{display:flex;gap:8px;flex-wrap:wrap;margin:8px 0 12px;align-items:center}
+input,select{background:var(--sf);border:1px solid var(--ln);border-radius:8px;padding:7px 10px}input{min-width:200px;flex:1}
+.g{display:inline-block;padding:1px 8px;border-radius:5px;font-weight:600}.g small{font-weight:400;opacity:.8}
+.win{background:var(--gd);font-weight:800}.win::after{content:" ▲";font-size:10px}.lose{color:var(--mut)}
+.tag{padding:1px 8px;border-radius:99px;font-size:12px;border:1px solid var(--ln)}.NP,.F{background:var(--bd)}
+.bp{width:110px}.bp i{display:block;height:5px;margin:2px 0;border-radius:3px}
+.pf{border-top:4px solid var(--c)}.pf h2{margin:0;font-size:19px}.pf .s{color:var(--mut);font-size:13px}
+.hm td,.hm th{padding:3px 4px;text-align:center;font-size:12px}.hm td:first-child,.hm th:first-child{position:sticky;left:0;background:var(--sf);text-align:left;padding-left:10px}
+.sk{display:flex;height:16px;border-radius:4px;overflow:hidden;min-width:150px}.sk i{display:block}
+.lg{margin:14px 0 0;font-size:12.5px;color:var(--mut)}.muted{color:var(--mut)}.hint{padding:30px;text-align:center;color:var(--mut)}
+</style></head><body>
+<header><div><h1 id="t">Result Explorer</h1><p id="sub"></p></div><button class="tg" id="th">Theme</button></header>
+<nav id="nav"></nav><main id="m"></main>
+<script>
+const D={"s":[["B190305049","SHAHIDUL ISLAM",[2.75,3.75,2.25,3.0,2.75,3.25,2.25,3.25,2.75,3.5],52.25,2.75,120,88,2.25,"CP"],["B200305014","JANNATUL FERDOUS",[3.75,4.0,2.5,3.5,3.25,3.5,3.0,3.25,2.75,3.0],60.25,3.17,121,114,2.68,"CP"],["B200305025","MD MAGHARUL ISLAM",[3.75,3.75,3.5,4.0,3.5,3.75,2.75,3.75,3.0,3.25],65.0,3.42,120,120,3.34,"P"],["B210305001","SAIMAN KHAN",[4.0,4.0,4.0,4.0,3.75,4.0,3.75,3.75,3.5,3.75],73.0,3.84,121,121,3.75,"P"],["B210305002","MST. MAHFUZA AKTER",[3.75,4.0,4.0,4.0,4.0,4.0,4.0,3.75,3.75,4.0],74.5,3.92,121,121,3.9,"P"],["B210305003","NUSRAT JAHAN SANJILA",[3.75,4.0,4.0,4.0,3.25,3.5,3.25,3.25,3.5,3.5],68.0,3.58,121,121,3.37,"P"],["B210305005","Istiaque Ahmed Rhythm",[3.25,4.0,3.75,4.0,3.25,4.0,3.5,4.0,4.0,4.0],69.25,3.64,121,121,3.59,"P"],["B210305006","AHMED BIN MUSTAFA",[3.5,4.0,4.0,4.0,3.75,4.0,4.0,4.0,4.0,4.0],73.75,3.88,121,121,3.91,"P"],["B210305007","FARIA ALAM",[3.5,3.5,3.0,3.0,4.0,3.5,3.75,3.5,4.0,2.75],67.0,3.53,121,118,3.43,"CP"],["B210305008","FABIHA ISLAM",[3.5,3.25,2.0,3.0,3.0,3.5,2.75,3.5,3.75,3.5],58.0,3.05,121,116,2.89,"CP"],["B210305010","FARZIA KHANDOKAR ESHAMONI",[3.5,3.5,3.5,4.0,3.0,3.75,3.25,3.75,3.75,3.75],66.0,3.47,121,121,3.37,"P"],["B210305011","MD. KHUSHBUL ALAM",[3.75,4.0,3.75,4.0,3.0,3.5,3.75,3.25,3.5,3.5],68.0,3.58,121,121,3.41,"P"],["B210305013","MD. SHARIFUL ISLAM SAKIB",[4.0,3.5,3.5,4.0,3.25,4.0,4.0,3.75,3.5,4.0],70.5,3.71,121,121,3.73,"P"],["B210305014","LAMIYA RAHMAN KHAN",[4.0,3.75,4.0,4.0,3.5,3.75,3.75,3.5,3.75,3.75],72.0,3.79,121,121,3.77,"P"],["B210305015","SHAMIA MALEK",[3.0,3.0,2.5,3.0,3.25,3.5,3.5,3.25,2.75,3.25],58.25,3.07,121,118,2.84,"CP"],["B210305016","MAISHA BINTE MONIR",[4.0,4.0,4.0,4.0,3.75,4.0,4.0,3.75,4.0,4.0],75.0,3.95,121,121,3.91,"P"],["B210305017","MD. MEHEDI HASSAN SHUVO",[3.75,4.0,3.75,4.0,3.0,4.0,3.25,3.75,3.75,3.5],68.0,3.58,121,121,3.44,"P"],["B210305020","SMRITI RANI PAUL",[3.5,3.5,2.75,3.25,3.75,3.75,3.0,3.5,2.75,3.5],62.0,3.26,121,118,3.17,"CP"],["B210305021","MOHAMMAD FATIN NUR",[3.5,4.0,3.75,4.0,3.25,3.75,3.75,3.75,4.0,3.75],70.0,3.68,121,115,3.13,"CP"],["B210305023","SHAMIM AHMED",[3.5,3.0,3.0,3.5,2.5,3.0,2.5,3.25,3.0,3.0],56.25,2.96,121,115,3.04,"CP"],["B210305027","ALFI SHARIN NINAD",[3.25,4.0,3.25,4.0,3.5,4.0,3.0,3.5,3.75,3.0],65.0,3.42,121,118,3.2,"CP"],["B210305028","PRITHBIRAJ SARKER",[3.25,4.0,3.75,4.0,3.75,4.0,3.5,4.0,4.0,3.75],70.5,3.71,121,121,3.4,"P"],["B210305029","SUMAIYA ALMA",[4.0,4.0,4.0,4.0,4.0,4.0,3.5,3.75,3.75,3.0],72.75,3.83,121,121,3.82,"P"],["B210305030","IJAJ MORSHED ZIHAN",[3.75,4.0,3.25,4.0,3.5,3.5,3.5,3.5,3.75,3.5],68.0,3.58,121,121,3.63,"P"],["B210305031","TASLIMA AKTER",[3.75,2.25,3.5,3.75,2.75,3.75,3.25,3.5,3.75,3.0],63.5,3.34,121,108,2.65,"CP"],["B210305032","RUP KUMAR SARKAR",[3.0,3.25,0.0,3.5,3.25,4.0,2.75,3.5,4.0,3.0],52.25,2.75,121,98,2.38,"CP"],["B210305034","MD. SOUROV MIA",[4.0,3.5,3.25,4.0,3.75,3.25,3.5,3.5,3.0,3.25],67.0,3.53,121,121,3.54,"P"],["B210305035","MD. ZIHADUL HASAN",[2.75,0.0,0.0,2.25,2.25,3.0,2.75,3.0,4.0,3.25],42.75,2.25,121,104,2.28,"CP"],["B210305036","AZIZ ULLAH MIZE TAREK",[3.75,4.0,4.0,4.0,3.75,4.0,3.75,4.0,4.0,4.0],73.75,3.88,121,121,3.56,"P"],["B210305037","MD. NAHIDUL ISLAM NAHID",[3.25,4.0,3.0,3.5,2.75,4.0,2.75,3.75,4.0,3.75],62.25,3.28,121,121,3.14,"P"],["B210305039","RITU AKTER",[4.0,3.5,3.75,3.25,3.75,3.5,3.25,3.5,4.0,4.0],70.0,3.68,121,121,3.48,"P"],["B210305040","MD. AHSANUL HOQUE ABIR",[3.75,4.0,3.75,4.0,2.75,4.0,2.75,3.5,4.0,3.5],66.0,3.47,121,118,3.28,"CP"],["B210305043","RUBAIYA RAHTIN",[3.5,3.0,0.0,2.75,3.25,3.5,3.0,3.5,2.75,3.0],50.5,2.66,121,118,2.93,"CP"],["B210305045","PULAK MOJUMDER AUNTU",[3.75,3.0,3.25,4.0,2.75,4.0,3.0,3.5,3.25,3.0],62.25,3.28,121,118,3.0,"CP"],["B210305047","SUBORNA AKTER",[4.0,4.0,4.0,4.0,3.75,4.0,4.0,4.0,4.0,4.0],75.25,3.96,121,121,3.84,"P"],["B210305051","MD. SHOHANUR RAHMAN",[3.5,4.0,3.75,4.0,3.75,4.0,4.0,4.0,4.0,4.0],73.0,3.84,121,121,3.51,"P"],["B210305052","ZIAD HASAN RAJEE",[3.75,3.5,4.0,4.0,3.5,3.75,4.0,3.25,3.25,4.0],70.75,3.72,121,121,3.68,"P"],["B210305055","MD. MAHMUDUL HASAN",[2.25,0.0,0.0,2.0,2.25,3.25,0.0,3.25,2.25,3.0],29.5,1.55,121,100,2.1,"NP"],["B210305056","KANIZ FATEMA",[3.0,4.0,3.75,4.0,3.25,4.0,3.5,3.75,3.5,3.0],66.25,3.49,121,121,3.2,"P"]],"c":[["CSE 3201","Compiler Design and Construction",3,"Theory"],["CSEL 3202","Compiler Design and Construction Lab",1,"Lab"],["CSE 3203","High Level Programming Language",3,"Theory"],["CSEL 3204","High Level Programming Language Lab",1,"Lab"],["CSE 3206","Software Engineering",3,"Theory"],["CSEL 3207","Software Engineering Lab",1,"Lab"],["CSE 3208","IoT and Embedded System",3,"Theory"],["CSEL 3209","IoT and Embedded System Lab",1,"Lab"],["CSEP 3210","Application Design and Development (Project)",2,"Project"],["CSEV 3211","Viva Voce",1,"Viva"]],"i":[["University","Jagannath University"],["Department","Department of Computer Science & Engineering"],["Program / Level","BSc, 3rd Year 2nd Semester"],["Examination","Examination 2024"],["Session","2021-22"],["Document","Result Sheet (2 pages: S/N 1–25 and S/N 26–39)"],["TCP of Current Semester","19"],["Students","39"],["Signature blocks","Tabulator-I, Tabulator-II, Chairman of Examination Committee, Verified By, Deputy Controller of Examinations"],["Comments codes","CP, P, NP appear as printed; the sheet does not define them, so they are kept as-is."]]};
+const GL=['A+','A','A-','B+','B','B-','C+','C','D','F'],GV=[4,3.75,3.5,3.25,3,2.75,2.5,2.25,2,0];
+const LG=g=>g>=4?'A+':g>=3.75?'A':g>=3.5?'A-':g>=3.25?'B+':g>=3?'B':g>=2.75?'B-':g>=2.5?'C+':g>=2.25?'C':g>=2?'D':'F';
+const $=s=>document.querySelector(s),f2=x=>x.toFixed(2),av=a=>a.reduce((x,y)=>x+y,0)/a.length,sm=(x,y)=>x+y;
+const E=s=>String(s).replace(/[&<>"]/g,c=>({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;'}[c]));
+const col=g=>`hsl(${g*35} 55% var(--hl))`,chip=g=>`<span class="g" style="background:${col(g)}">${f2(g)} <small>${LG(g)}</small></span>`;
+const med=a=>{a=[...a].sort((x,y)=>x-y);const n=a.length;return n%2?a[(n-1)/2]:(a[n/2-1]+a[n/2])/2};
+const C=D.c.map(([code,t,cr,ty])=>({code,t,cr,ty}));
+const S=D.s.map((a,i)=>({n:i+1,id:a[0],name:a[1],gp:a[2],tgp:a[3],gpa:a[4],cgpa:a[7],tcp:a[5],ecp:a[6],cm:a[8]}));
+S.forEach(s=>{s.bl=s.tcp-s.ecp;s.f=s.gp.filter(x=>!x).length;s.rg=1+S.filter(o=>o.gpa>s.gpa).length;s.rc=1+S.filter(o=>o.cgpa>s.cgpa).length});
+const cs=C.map((c,i)=>{const v=S.map(s=>s.gp[i]),m=av(v);return{...c,i,m,sd:Math.sqrt(av(v.map(x=>(x-m)**2))),f:v.filter(x=>!x).length,ap:v.filter(x=>x>=3.75).length,dist:GV.map(g=>v.filter(x=>x==g).length)}});
+const AVG={name:'Class average',id:'—',gp:C.map((_,i)=>av(S.map(s=>s.gp[i]))),gpa:av(S.map(s=>s.gpa)),cgpa:av(S.map(s=>s.cgpa)),cm:'',bl:av(S.map(s=>s.bl)),rg:'—',rc:'—',avg:1};
+const RES={P:'Passed',CP:'Conditionally passed',NP:'Not passed'};
+const byId=id=>S.find(s=>s.id==id);
+const grpAvg=(s,ty)=>{const ix=C.map((c,i)=>c.ty==ty||(ty=='Lab'&&(c.ty=='Project'||c.ty=='Viva'))?i:-1).filter(i=>i>=0);return av(ix.map(i=>s.gp[i]))};
+const bars=(rows,max)=>rows.map(([l,v,t])=>`<div class="bar"><u>${l}</u><i style="width:${v/max*70}%"></i><em>${t??v}</em></div>`).join('');
+const info=Object.fromEntries(D.i);$('#t').textContent=info['Department'].replace('Department of ','')+' · '+info['Program / Level'].replace('BSc, ','');
+$('#sub').textContent=`${info['University']} · ${info['Examination']} · Session ${info['Session']} · ${S.length} students`;
+$('#th').onclick=()=>{const r=document.documentElement;r.dataset.theme=(r.dataset.theme||(matchMedia('(prefers-color-scheme:dark)').matches?'dark':'light'))=='dark'?'light':'dark'};
+const TABS=[['ov','Overview'],['st','Students'],['cp','Compare'],['co','Courses']];let tab='ov';
+$('#nav').innerHTML=TABS.map(t=>`<button data-t="${t[0]}">${t[1]}</button>`).join('');
+$('#nav').onclick=e=>{if(e.target.dataset.t)go(e.target.dataset.t)};
+function go(t){tab=t;document.querySelectorAll('nav button').forEach(b=>b.classList.toggle('on',b.dataset.t==t));({ov,st,cp,co})[t]();scrollTo(0,0)}
+/* ---------- Overview ---------- */
+function ov(){
+ const g=S.map(s=>s.gpa),n=S.length,cm=k=>S.filter(s=>s.cm==k).length,top=[...S].sort((a,b)=>b.gpa-a.gpa);
+ const dist=GL.map(l=>[l,S.filter(s=>s.gpa>=0&&LG(s.gpa)==l).length]);
+ const cb=[['3.75+',x=>x>=3.75],['3.5–3.74',x=>x>=3.5&&x<3.75],['3.0–3.49',x=>x>=3&&x<3.5],['2.5–2.99',x=>x>=2.5&&x<3],['<2.5',x=>x<2.5]].map(([l,f])=>[l,S.filter(s=>f(s.cgpa)).length]);
+ const hard=[...cs].sort((a,b)=>a.m-b.m),fS=S.filter(s=>s.f),th=av(S.map(s=>grpAvg(s,'Theory'))),lb=av(S.map(s=>grpAvg(s,'Lab')));
+ const up=[...S].sort((a,b)=>(b.gpa-b.cgpa)-(a.gpa-a.cgpa)),blS=S.filter(s=>s.bl>0),tf=cs.filter(c=>c.f).sort((a,b)=>b.f-a.f);
+ $('#m').innerHTML=`<div class="grid">
+ <div class="card k"><b>${f2(av(g))}</b><span>Average semester GPA (median ${f2(med(g))})</span></div>
+ <div class="card k"><b>${f2(av(S.map(s=>s.cgpa)))}</b><span>Average CGPA</span></div>
+ <div class="card k"><b>${cm('P')}<small class="muted"> / ${n}</small></b><span>Passed (P) · ${(cm('P')/n*100).toFixed(0)}%</span></div>
+ <div class="card k"><b>${cm('CP')}</b><span>Conditionally passed (CP) · ${(cm('CP')/n*100).toFixed(0)}%</span></div>
+ <div class="card k"><b>${cm('NP')}</b><span>Not passed (NP)</span></div>
+ <div class="card k"><b>${fS.length}</b><span>Students with an F in a course</span></div></div>
+ <div class="grid two" style="margin-top:12px">
+ <div class="card"><h3>Semester letter grades</h3>${bars(dist,Math.max(...dist.map(d=>d[1])))}</div>
+ <div class="card"><h3>CGPA bands</h3>${bars(cb,Math.max(...cb.map(d=>d[1])))}</div>
+ <div class="card"><h3>Top 5 this semester</h3>${top.slice(0,5).map((s,i)=>`<div class="bar"><u>#${i+1}</u><a href="#" data-o="${s.id}" style="color:var(--ac);flex:1">${E(s.name)}</a><em>GPA ${f2(s.gpa)} · CGPA ${f2(s.cgpa)}</em></div>`).join('')}</div>
+ <div class="card"><h3>Needs attention</h3>${[...S].sort((a,b)=>b.bl-a.bl||a.gpa-b.gpa).slice(0,5).map(s=>`<div class="bar"><a href="#" data-o="${s.id}" style="color:var(--ac);flex:1">${E(s.name)}</a><em>${s.bl} backlog cr · GPA ${f2(s.gpa)} · ${s.cm}</em></div>`).join('')}</div></div>
+ <div class="card" style="margin-top:12px"><h3>Insights</h3><ul class="in">
+ <li><b>Hardest course:</b> ${hard[0].code} ${hard[0].t} (avg GP ${f2(hard[0].m)}${hard[0].f?`, ${hard[0].f} F`:''}). <b>Easiest:</b> ${hard[9].code} (avg ${f2(hard[9].m)}).</li>
+ <li>Labs, project and viva average ${f2(lb)} versus ${f2(th)} in theory: the gap is ${f2(lb-th)} grade points.</li>
+ <li>${fS.length} students hold at least one F (${cs.reduce((a,c)=>a+c.f,0)} F grades in total)${tf.length?`, mostly in ${tf.map(c=>c.code+' ('+c.f+')').join(', ')}`:''}.</li>
+ <li>${blS.length} students carry backlog credits (unearned credits, mostly the CP group), ${blS.reduce((a,s)=>a+s.bl,0)} credits in total. Largest: ${E(blS.sort((a,b)=>b.bl-a.bl)[0].name)} with ${blS[0].bl}.</li>
+ <li>Biggest semester surge over CGPA: ${E(up[0].name)} (GPA ${f2(up[0].gpa)} vs CGPA ${f2(up[0].cgpa)}). Biggest slip: ${E(up[n-1].name)} (${f2(up[n-1].gpa)} vs ${f2(up[n-1].cgpa)}).</li>
+ <li>${S.filter(s=>s.gpa>=3.5).length} students (${(S.filter(s=>s.gpa>=3.5).length/n*100).toFixed(0)}%) scored a semester GPA of 3.50 or more; ${S.filter(s=>s.cgpa>=3.5).length} hold a CGPA of 3.50 or more.</li>
+ <li>Topper: ${E(top[0].name)} (${f2(top[0].gpa)}). Semester rank and CGPA rank match for only ${S.filter(s=>s.rg==s.rc).length} students.</li></ul></div>`;
+}
+document.addEventListener('click',e=>{const o=e.target.closest('[data-o]');if(o){e.preventDefault();cmp.a=o.dataset.o;go('cp')}});
+/* ---------- Students ---------- */
+let q={s:'',cm:'',lg:'',f:0,k:'n',d:1};
+const COLS=[['n','#',s=>s.n],['id','Roll / ID',s=>s.id],['name','Name',s=>s.name],['gpa','GPA',s=>s.gpa],['cgpa','CGPA',s=>s.cgpa],['bl','Backlog cr.',s=>s.bl],['rg','GPA rank',s=>s.rg],['cm','Result',s=>s.cm]];
+function st(){
+ $('#m').innerHTML=`<div class="ctl"><input id="qs" placeholder="Search name or roll (e.g. 005 or B210305005)" value="${E(q.s)}">
+ <select id="qc"><option value="">All results</option><option value="P">Passed (P)</option><option value="CP">Conditionally passed (CP)</option><option value="NP">Not passed (NP)</option></select>
+ <select id="ql"><option value="">Any semester grade</option>${GL.map(l=>`<option>${l}</option>`).join('')}</select>
+ <label class="tg"><input type="checkbox" id="qf" style="min-width:0"> Has an F</label><span class="muted" id="qn"></span></div><div class="tw"><table><thead><tr id="hd"></tr></thead><tbody id="tb"></tbody></table></div>`;
+ $('#qc').value=q.cm;$('#ql').value=q.lg;$('#qf').checked=!!q.f;
+ $('#qs').oninput=e=>{q.s=e.target.value;rows()};$('#qc').onchange=e=>{q.cm=e.target.value;rows()};$('#ql').onchange=e=>{q.lg=e.target.value;rows()};$('#qf').onchange=e=>{q.f=e.target.checked;rows()};
+ $('#hd').onclick=e=>{const k=e.target.dataset.k;if(!k)return;q.d=q.k==k?-q.d:(k=='gpa'||k=='cgpa'?-1:1);q.k=k;rows()};rows();
+}
+function rows(){
+ const t=q.s.trim().toLowerCase(),c=COLS.find(c=>c[0]==q.k)[2];
+ let r=S.filter(s=>(!t||s.id.toLowerCase().includes(t)||s.name.toLowerCase().includes(t))&&(!q.cm||s.cm==q.cm)&&(!q.lg||LG(s.gpa)==q.lg)&&(!q.f||s.f));
+ r.sort((a,b)=>{const x=c(a),y=c(b);return(x>y?1:x<y?-1:0)*q.d});
+ $('#hd').innerHTML=COLS.map(c=>`<th data-k="${c[0]}">${c[1]}${q.k==c[0]?(q.d>0?' ↑':' ↓'):''}</th>`).join('');
+ $('#qn').textContent=r.length+' of '+S.length+' students';
+ $('#tb').innerHTML=r.map(s=>`<tr class="cl" data-o="${s.id}"><td>${s.n}</td><td>${s.id}</td><td>${E(s.name)}</td><td>${chip(s.gpa)}</td><td>${f2(s.cgpa)}</td><td>${s.bl||'–'}</td><td>${s.rg}</td><td><span class="tag ${s.cm}" title="${RES[s.cm]}">${s.cm}</span>${s.f?` <span class="tag F">${s.f} F</span>`:''}</td></tr>`).join('')||'<tr><td colspan=8 class="hint">No students match these filters.</td></tr>';
+}
+/* ---------- Compare ---------- */
+const cmp={a:null,b:null};
+function find(v){v=v.trim().toLowerCase();if(!v)return[];let r=S.filter(s=>s.id.toLowerCase()==v);if(r.length)return r;r=S.filter(s=>s.id.toLowerCase().endsWith(v));return r.length?r:S.filter(s=>s.id.toLowerCase().includes(v)||s.name.toLowerCase().includes(v))}
+function cp(){
+ const opts=S.map(s=>`<option value="${s.id}">${E(s.name)}</option>`).join('');
+ $('#m').innerHTML=`<datalist id="dl">${opts}</datalist><div class="ctl"><input list="dl" id="ia" placeholder="Student A: roll or name" style="border-color:var(--A)" value="${cmp.a||''}"><input list="dl" id="ib" placeholder="Compare with: roll or name (blank = class average)" style="border-color:var(--B)" value="${cmp.b||''}"></div><div class="muted" id="msg" style="margin-bottom:8px"></div><div id="cv"></div>`;
+ const bind=(id,k)=>$(id).oninput=e=>{const r=find(e.target.value);cmp[k]=r.length==1?r[0].id:null;$('#msg').textContent=e.target.value&&r.length!=1?(r.length?r.length+' matches – keep typing or pick from the list':'No student found'):'';view()};
+ bind('#ia','a');bind('#ib','b');view();
+}
+function view(){
+ const A=cmp.a&&byId(cmp.a);if(!A){$('#cv').innerHTML='<div class="card hint">Search a roll number or name to see a full profile, then compare with another student or the class average.</div>';return}
+ const B=cmp.b&&cmp.b!=cmp.a?byId(cmp.b):AVG;let wa=0,wb=0,ti=0,lead=[];
+ const body=C.map((c,i)=>{const a=A.gp[i],b=B.gp[i],d=a-b;d>0.001?wa++:d<-0.001?wb++:ti++;lead.push([d,c]);
+  const ca=d>0.001?'win':d<-0.001?'lose':'',cb=d<-0.001?'win':d>0.001?'lose':'';
+  return`<tr><td>${c.code}<div class="muted" style="font-size:11px">${c.t}</div></td><td>${c.cr}</td><td class="${ca}">${chip(a)}</td><td class="${cb}">${B.avg?f2(b):chip(b)}</td><td>${(d>0?'+':'')+f2(d)}</td><td class="muted">${f2(cs[i].m)}</td><td class="bp"><i style="width:${a/4*100}%;background:var(--A)"></i><i style="width:${b/4*100}%;background:var(--B)"></i></td></tr>`}).join('');
+ const card=(s,c)=>`<div class="card pf" style="--c:var(--${c})"><h2>${E(s.name)}</h2><div class="s">${s.id}${s.avg?'':' · '+RES[s.cm]}</div><div class="grid" style="margin-top:10px;grid-template-columns:repeat(3,1fr)"><div class="k"><b>${f2(s.gpa)}</b><span>GPA · rank ${s.rg}</span></div><div class="k"><b>${f2(s.cgpa)}</b><span>CGPA · rank ${s.rc}</span></div><div class="k"><b>${s.avg?f2(s.bl):s.bl}</b><span>backlog cr.</span></div></div></div>`;
+ const w=(x,y,l)=>Math.abs(x-y)<.005?`Level on ${l}.`:`${x>y?E(A.name):E(B.name)} is ahead on ${l} by ${f2(Math.abs(x-y))}.`;
+ lead.sort((x,y)=>y[0]-x[0]);const tg=C.reduce((a,c,i)=>a+c.cr*(A.gp[i]-B.gp[i]),0),beat=s=>C.filter((c,i)=>s.gp[i]>cs[i].m).length;
+ const na=E(A.name),nb=E(B.name),ths=[grpAvg(A,'Theory'),grpAvg(B,'Theory')],lbs=[grpAvg(A,'Lab'),grpAvg(B,'Lab')];
+ const ins=[`${na} wins ${wa} courses, ${nb} wins ${wb}, ${ti} tied.`,
+ lead[0][0]>0?`${na}'s biggest edge: ${lead[0][1].code} (+${f2(lead[0][0])}).`:'',
+ lead[9][0]<0?`${nb}'s biggest edge: ${lead[9][1].code} (+${f2(-lead[9][0])}).`:'',
+ w(A.gpa,B.gpa,'semester GPA')+' '+w(A.cgpa,B.cgpa,'CGPA'),
+ `Credit-weighted, the grade-point total differs by ${f2(Math.abs(tg))} (${tg>=0?'A':'B'} ahead).`,
+ `Theory average: ${f2(ths[0])} vs ${f2(ths[1])}. Labs, project and viva: ${f2(lbs[0])} vs ${f2(lbs[1])}.`,
+ `${na} beats the class average in ${beat(A)} of ${C.length} courses${B.avg?'':`; ${nb} in ${beat(B)}`}.`,
+ A.gpa-A.cgpa>.2?`${na}'s semester GPA is ${f2(A.gpa-A.cgpa)} above their CGPA: an upward trend.`:A.cgpa-A.gpa>.2?`${na}'s semester GPA is ${f2(A.cgpa-A.gpa)} below their CGPA: a dip this semester.`:'',
+ A.f?`${na} has an F in ${C.filter((c,i)=>!A.gp[i]).map(c=>c.code).join(', ')}.`:'',B.f?`${nb} has an F in ${C.filter((c,i)=>!B.gp[i]).map(c=>c.code).join(', ')}.`:''].filter(Boolean);
+ $('#cv').innerHTML=`<div class="grid two">${card(A,'A')}${card(B,'B')}</div>
+ <div class="tw" style="margin-top:12px"><table><thead><tr><th>Course</th><th>Cr</th><th style="color:var(--A)">${na}</th><th style="color:var(--B)">${nb}</th><th>Diff</th><th>Class avg</th><th></th></tr></thead><tbody>${body}</tbody></table></div>
+ <div class="card" style="margin-top:12px"><h3>Insights</h3><ul class="in">${ins.map(i=>`<li>${i}</li>`).join('')}</ul><div class="muted" style="font-size:12px;margin-top:8px">Green ▲ marks the better grade in each course.</div></div>`;
+}
+/* ---------- Courses ---------- */
+let sel=null;
+function co(){
+ const sk=c=>`<div class="sk">${c.dist.map((n,j)=>n?`<i title="${GL[j]}: ${n}" style="width:${n/S.length*100}%;background:${col(GV[j])}"></i>`:'').join('')}</div>`;
+ const order=[...S].sort((a,b)=>b.gpa-a.gpa);
+ $('#m').innerHTML=`<div class="tw"><table><thead><tr><th>Course</th><th>Type</th><th>Cr</th><th>Avg GP</th><th>Std dev</th><th>A or better</th><th>F</th><th>Grade mix</th></tr></thead><tbody>${cs.map(c=>`<tr class="cl" data-c="${c.i}"><td>${c.code}<div class="muted" style="font-size:11px">${c.t}</div></td><td>${c.ty}</td><td>${c.cr}</td><td>${chip(c.m)}</td><td>${f2(c.sd)}</td><td>${c.ap} (${(c.ap/S.length*100).toFixed(0)}%)</td><td>${c.f?`<span class="tag F">${c.f}</span>`:'–'}</td><td>${sk(c)}</td></tr>`).join('')}</tbody></table></div>
+ <div class="card" id="cd" style="margin:12px 0"><span class="muted">Select a course row to see its toppers and F grades.</span></div>
+ <h3 style="margin:18px 0 8px">Grade heatmap (sorted by semester GPA)</h3><div class="tw hm"><table><thead><tr><th>Student</th>${C.map(c=>`<th title="${c.t}">${c.code.replace(/^CSE?/,'')}</th>`).join('')}<th>GPA</th></tr></thead><tbody>${order.map(s=>`<tr class="cl" data-o="${s.id}"><td>${E(s.name)}</td>${s.gp.map(g=>`<td style="background:${col(g)}">${g}</td>`).join('')}<td><b>${f2(s.gpa)}</b></td></tr>`).join('')}</tbody></table></div>`;
+ $('#m').querySelector('tbody').onclick=e=>{const r=e.target.closest('[data-c]');if(!r)return;const c=cs[+r.dataset.c],mx=Math.max(...S.map(s=>s.gp[c.i])),fs=S.filter(s=>!s.gp[c.i]);
+  $('#cd').innerHTML=`<h3>${c.code} · ${c.t}</h3><div class="grid two"><div><b>Highest (${mx.toFixed(2)}):</b> ${S.filter(s=>s.gp[c.i]==mx).map(s=>`<a href="#" data-o="${s.id}" style="color:var(--ac)">${E(s.name)}</a>`).join(', ')}</div><div><b>F grades:</b> ${fs.length?fs.map(s=>`<a href="#" data-o="${s.id}" style="color:var(--ac)">${E(s.name)}</a>`).join(', '):'none'}</div></div><div class="muted" style="margin-top:6px">Pass rate ${((1-c.f/S.length)*100).toFixed(0)}% · average ${f2(c.m)} (${LG(c.m)}) · spread ${f2(c.sd)}</div>`};
+}
+go('ov');
+</script></body></html>
